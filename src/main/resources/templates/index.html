@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Ancient Architecture</title>
+        <link rel="stylesheet" href="/src/main/resources/static/css/index.css" />
+
+        <link rel="stylesheet" th:href="@{/css/index.css}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    </head>
+    <body>
+        <div class="body_container">
+            <section class="index_banner">
+                <nav class="navBar">
+                    <div class="nav-container">
+                        <div class="brand">
+                            <span class="logo"><i class="fas fa-archway"></i></span>
+                            <span class="brand-name">Ancient Architecture</span>
+                        </div>
+                        <div class="nav-links">
+                            <a href="/" class="nav-btn">Home</a>
+                            <a href="/gallery" class="nav-btn">Gallery</a>
+                            <a href="/about" class="nav-btn">About</a>
+                            <a href="/contact" class="nav-btn">Contact</a>
+                        </div>
+                    </div>
+                </nav>
+                <div class="banner-content">
+                    <h2 class="H2_text">Learning About History</h2>
+
+                    <div class="searching">
+                        <form th:action="@{/search}" method="get">
+                            <input
+                                type="text"
+                                id="searchInput"
+                                name="query"
+                                placeholder="Search..."
+                                class="search-input"
+                                autocomplete="off"
+                            />
+                            <div id="suggestionBox"></div>
+                            <button type="submit" class="search-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+
+                        <div th:if="${searchResults != null}">
+                            <h3>You searched for: [[${searchQuery}]]</h3>
+                            <ul>
+                                <li th:each="result : ${searchResults}" th:text="${result.chineseName}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="imageResults">
+                </div>
+            </section>
+        </div>
+
+        <script>
+            const searchInput = document.getElementById("searchInput");
+            const suggestionBox = document.getElementById("suggestionBox");
+            const imageResults = document.getElementById("imageResults");
+
+            searchInput.addEventListener("input", function () {
+                const query = this.value.trim();
+
+                if (query.length < 2) {
+                    suggestionBox.innerHTML = "";
+                    imageResults.innerHTML = "";
+                    return;
+                }
+
+                fetch(`/api/suggestions?query=${encodeURIComponent(query)}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    suggestionBox.innerHTML = "";
+                    data.forEach((item) => {
+                        let div = document.createElement("div");
+                        div.textContent = item;
+                        div.style.padding = "5px 10px";
+                        div.style.cursor = "pointer";
+
+                        div.addEventListener("click", () => {
+                            searchInput.value = item;
+                            suggestionBox.innerHTML = "";
+                        });
+
+                        suggestionBox.appendChild(div);
+                    });
+                });
+
+                fetch(`/api/search-images?query=${encodeURIComponent(query)}`)
+                .then((res) => res.json())
+                .then((items) => {
+                    imageResults.innerHTML = "";
+                    items.forEach((item) => {
+                        let imgDiv = document.createElement("div");
+                        // imgDiv.style.margin = "15px";
+                        imgDiv.style.cursor = "pointer";
+                        imgDiv.style.display = "inline-block";
+
+                        imgDiv.onclick = function () {
+                            window.location.href = `/search?query=id:${item.id}`;
+                        };
+
+                        imgDiv.innerHTML = `
+                    <img 
+                        src="${item.imageUrl}" 
+                        style="width:280px; height:200px; object-fit:contain; border-radius:8px;"
+                    >
+                `;
+                        imageResults.appendChild(imgDiv);
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

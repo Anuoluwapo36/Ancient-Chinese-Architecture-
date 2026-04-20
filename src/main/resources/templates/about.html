@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>About | Ancient Architecture</title>
+
+        <link rel="stylesheet" th:href="@{/css/search.css}" />
+        <link rel="stylesheet" th:href="@{/css/gallery.css}" />
+        <link rel="stylesheet" href="/src/main/resources/static/css/gallery.css" />
+        <link rel="stylesheet" href="/src/main/resources/static/css/search.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+        <style>
+            .about-section {
+                padding: 50px 20px;
+                max-width: 1100px;
+                margin: 0 auto;
+                line-height: 1.8;
+                font-size: 16px;
+            }
+            .about-section h2 {
+                margin-top: 35px;
+                margin-bottom: 15px;
+                color: #222;
+            }
+            .about-section p {
+                margin-bottom: 12px;
+                color: #333;
+            }
+            .about-section ul {
+                margin-left: 20px;
+                margin-bottom: 20px;
+            }
+            .about-section li {
+                margin-bottom: 8px;
+            }
+            footer {
+                background-color: #1a1a1a;
+                color: white;
+                padding: 50px 20px;
+                margin-top: 60px;
+            }
+            .footer-container {
+                max-width: 1100px;
+                margin: 0 auto;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 40px;
+            }
+            .footer-col {
+                flex: 1;
+                min-width: 220px;
+            }
+            .footer-col h3 {
+                margin-bottom: 20px;
+                color: #d4af37;
+            }
+            .footer-col p,
+            .footer-col a {
+                color: #ccc;
+                text-decoration: none;
+                line-height: 1.7;
+            }
+            .footer-col a:hover {
+                color: white;
+            }
+            .copyright {
+                text-align: center;
+                padding-top: 30px;
+                margin-top: 30px;
+                border-top: 1px solid #444;
+                color: #888;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="body_container">
+            <nav class="navBar scrolled">
+                <div class="nav-container">
+                    <div class="brand">
+                        <span class="logo"><i class="fas fa-archway"></i></span>
+                        <span class="brand-name">Ancient Architecture</span>
+                    </div>
+                    <div class="nav-links">
+                        <a href="/" class="nav-btn">Home</a>
+                        <a href="/gallery" class="nav-btn">Gallery</a>
+                        <a href="/about" class="nav-btn" style="color: var(--accent)">About</a>
+                        <a href="/contact" class="nav-btn">Contact</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="gallery-page-header">
+                <h1>About This Website</h1>
+            </div>
+
+            <div class="about-section">
+                <h2>Welcome to the Ancient Chinese Architecture Archive</h2>
+                <p>
+                    This website is a dedicated digital archive created to preserve, showcase, and share the beauty and
+                    history of Ancient Chinese Architecture with the world.
+                </p>
+                <p>
+                    Our mission is to make historical knowledge accessible to everyone students, teachers, researchers,
+                    travelers, and anyone who loves culture, history, and beautiful architecture.
+                </p>
+
+                <h2>What This Website Offers</h2>
+                <ul>
+                    <li>A full visual gallery displaying the first image of every ancient architecture</li>
+                    <li>Powerful search to quickly find any building by name, dynasty, or location</li>
+                    <li>Detailed information about each structure’s history, design, and cultural importance</li>
+                    <li>High-quality images and well-researched descriptions for learning and exploration</li>
+                    <li>Easy navigation so you can browse, search, and discover without confusion</li>
+                </ul>
+
+                <h2>Why We Created This Website</h2>
+                <p>
+                    Ancient Chinese architecture is one of the most unique and remarkable architectural traditions in
+                    the world. It carries thousands of years of history, culture, craftsmanship, and philosophy.
+                </p>
+                <p>
+                    Unfortunately, much of this knowledge is scattered or hard to access. We built this platform to
+                    gather all these treasures in one place so no story is forgotten, no building is overlooked, and no
+                    culture is lost.
+                </p>
+
+                <h2>Who Is This Website For?</h2>
+                <p>This archive is for everyone:</p>
+                <ul>
+                    <li>Students learning about Chinese history and culture</li>
+                    <li>Teachers looking for reliable resources and visuals</li>
+                    <li>Travelers planning to visit historical sites in China</li>
+                    <li>Art and architecture lovers worldwide</li>
+                    <li>Anyone who wants to explore ancient history with ease</li>
+                </ul>
+
+                <h2>Our Vision</h2>
+                <p>
+                    We aim to become the largest and most trusted online archive for Ancient Chinese Architecture. We
+                    will keep expanding our collection, improving our content, and making learning easier and more
+                    enjoyable for all users.
+                </p>
+                <p>
+                    Thank you for being part of this journey to preserve and celebrate the wonders of Ancient Chinese
+                    Architecture.
+                </p>
+            </div>
+
+            <footer>
+                <div class="footer-container">
+                    <div class="footer-col">
+                        <h3>About Us</h3>
+                        <p>
+                            We are a team passionate about preserving ancient Chinese architecture and making history
+                            accessible to everyone.
+                        </p>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Quick Links</h3>
+                        <a href="/">Home</a><br />
+                        <a href="/gallery">Gallery</a><br />
+                        <a href="/about">About</a><br />
+                        <a href="/contact">Contact</a>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Contact</h3>
+                        <p><i class="fas fa-envelope"></i> info@ancientarch.com</p>
+                        <p><i class="fas fa-globe"></i> ancientarchitecture.com</p>
+                    </div>
+                </div>
+                <div class="copyright">&copy; 2026 Ancient Chinese Architecture Archive. All Rights Reserved.</div>
+            </footer>
+        </div>
+    </body>
+</html>

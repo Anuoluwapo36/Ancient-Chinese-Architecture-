@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Ancient Architecture - Historical Heritage</title>
+
+        <link rel="stylesheet" th:href="@{/css/search.css}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    </head>
+    <body>
+        <div class="body_container">
+            <section
+                class="index_banner"
+                th:style="${item != null && item.images != null and not #lists.isEmpty(item.images)} ?
+             'background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(' + ${item.images[0].imageUrl} + ') no-repeat center center / cover; height: 60vh;' :
+             'background:#2d2d2d; height:60vh;'"
+            >
+                <nav class="navBar">
+                    <div class="nav-container">
+                        <div class="brand">
+                            <span class="logo"><i class="fas fa-archway"></i></span>
+                            <span class="brand-name">Ancient Architecture</span>
+                        </div>
+                        <div class="nav-links">
+                            <a href="/" class="nav-btn">Home</a>
+                            <a href="/gallery" class="nav-btn">Gallery</a>
+                            <a href="/about" class="nav-btn">About</a>
+                            <a href="/contact" class="nav-btn">Contact</a>
+                        </div>
+                    </div>
+                </nav>
+
+                <h1 class="dynasty-title">
+                    <span th:if="${item != null}" th:text="${item.dynasty}">Dynasty</span>
+                    <span th:if="${item == null}">Architectural Heritage</span>
+                </h1>
+            </section>
+
+            <div class="call">
+                <div class="info-get" th:if="${item != null}">
+                    <div id="imageResults">
+                        <img
+                            th:src="${item.images != null and not #lists.isEmpty(item.images) ? item.images[0].imageUrl : '/uploads/beijin.jpg'}"
+                            alt="Architecture"
+                        />
+                    </div>
+                    <div class="beside-image-result">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-info-circle"></i> Basic Information</h3>
+                            <div class="building-details">
+                                <div class="detail-row">
+                                    <h2 th:text="${item.chineseName}">Name</h2>
+                                </div>
+                                <div class="detail-row">
+                                    <h3>Type</h3>
+                                    <span th:text="${item.buildingType}">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <h3>Dynasty</h3>
+                                    <span th:text="${item.dynasty}">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <h3>Location</h3>
+                                    <span th:text="${item.location}">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <h3>Year Built</h3>
+                                    <span th:text="${item.yearBuild}">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <h3>Architecture Style</h3>
+                                    <span th:text="${item.architectureStyle}">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <h3>Construction Materials</h3>
+                                    <span th:text="${item.constructionMaterials}">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <h3>Total Area</h3>
+                                    <span th:text="${item.totalArea + ' m²'}">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-card" th:if="${item != null}">
+                    <h3><i class="fas fa-book-open"></i> Description</h3>
+                    <p th:text="${item.description}">Detailed description...</p>
+                </div>
+
+                <div
+                    class="gallery-section"
+                    th:if="${item != null and item.images != null and not #lists.isEmpty(item.images)}"
+                >
+                    <div class="gallery-header">
+                        <h2><i class="fas fa-images"></i> Image Gallery</h2>
+                        <p>Explore the beauty of this architectural masterpiece</p>
+                    </div>
+
+                    <div class="gallery-preview-layout">
+                        <div class="gallery-main-img">
+                            <img
+                                th:src="${item.images[0].imageUrl}"
+                                alt="Main Image"
+                                onclick="openLightbox(document.querySelector('.full-gallery-source .gallery-item'))"
+                            />
+                        </div>
+
+                        <div class="gallery-thumb-grid">
+                            <div th:each="img, stat : ${item.images}" th:if="${stat.index >= 1 && stat.index <= 4}">
+                                <img
+                                    th:src="${img.imageUrl}"
+                                    alt="Thumbnail"
+                                    onclick="openLightbox(document.querySelector('.full-gallery-source .gallery-item'))"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-view-all">
+                        <button onclick="openLightbox(document.querySelector('.full-gallery-source .gallery-item'))">
+                            VIEW ALL [[${item.images.size()}]] IMAGES
+                        </button>
+                    </div>
+                </div>
+
+                <div
+                    class="full-gallery-source"
+                    style="display: none"
+                    th:if="${item != null and item.images != null and not #lists.isEmpty(item.images)}"
+                >
+                    <div class="gallery-item" th:each="image, imgStat : ${item.images}" onclick="openLightbox(this)">
+                        <img th:src="${image.imageUrl}" />
+                        <div class="gallery-caption" th:text="'Image ' + ${imgStat.index + 1}"></div>
+                    </div>
+                </div>
+
+                <div class="detail-card" th:if="${item != null}">
+                    <h3><i class="fas fa-landmark"></i> Historical Significance</h3>
+                    <p th:text="${item.historicalSignificance}">Historical significance...</p>
+                </div>
+
+                <div class="detail-card" th:if="${item != null}">
+                    <h3><i class="fas fa-file-alt"></i> Summary</h3>
+                    <p th:text="${item.briefDescription}">Brief summary...</p>
+                </div>
+            </div>
+
+            <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+                <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+                <div class="lightbox-content">
+                    <img id="lightbox-img" src="" alt="Full Size Image" />
+                    <div id="lightbox-caption" class="lightbox-caption"></div>
+                </div>
+                <button class="lightbox-prev" onclick="prevImage(event)">&#10094;</button>
+                <button class="lightbox-next" onclick="nextImage(event)">&#10095;</button>
+            </div>
+
+            <div th:if="${item == null}" class="no-results">
+                <h2><i class="fas fa-search"></i> No results found for: [[${searchQuery}]]</h2>
+                <p>Please try searching with different keywords.</p>
+            </div>
+        </div>
+
+        <script>
+            window.addEventListener("scroll", function () {
+                const nav = document.querySelector(".navBar");
+                if (window.scrollY > 50) nav.classList.add("scrolled");
+                else nav.classList.remove("scrolled");
+            });
+
+            let currentImageIndex = 0;
+            let galleryImages = [];
+
+            function openLightbox(element) {
+                const allGalleryItems = document.querySelectorAll(".gallery-item");
+                galleryImages = [];
+                allGalleryItems.forEach((item, index) => {
+                    const img = item.querySelector("img");
+                    if (img) {
+                        galleryImages.push({
+                            src: img.src,
+                            caption: item.querySelector(".gallery-caption")?.innerText || "Image " + (index + 1),
+                        });
+                    }
+                });
+                const clickedImg = element.querySelector("img");
+                currentImageIndex = galleryImages.findIndex((img) => img.src === clickedImg.src);
+                const lightbox = document.getElementById("lightbox");
+                const lightboxImg = document.getElementById("lightbox-img");
+                const lightboxCaption = document.getElementById("lightbox-caption");
+                lightboxImg.src = galleryImages[currentImageIndex].src;
+                lightboxCaption.innerText = galleryImages[currentImageIndex].caption;
+                lightbox.classList.add("active");
+                document.body.style.overflow = "hidden";
+            }
+
+            function closeLightbox() {
+                document.getElementById("lightbox").classList.remove("active");
+                document.body.style.overflow = "";
+            }
+
+            function nextImage(event) {
+                event.stopPropagation();
+                currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+                document.getElementById("lightbox-img").src = galleryImages[currentImageIndex].src;
+                document.getElementById("lightbox-caption").innerText = galleryImages[currentImageIndex].caption;
+            }
+
+            function prevImage(event) {
+                event.stopPropagation();
+                currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+                document.getElementById("lightbox-img").src = galleryImages[currentImageIndex].src;
+                document.getElementById("lightbox-caption").innerText = galleryImages[currentImageIndex].caption;
+            }
+
+            document.addEventListener("keydown", function (e) {
+                const lightbox = document.getElementById("lightbox");
+                if (lightbox.classList.contains("active")) {
+                    if (e.key === "ArrowRight") nextImage(e);
+                    if (e.key === "ArrowLeft") prevImage(e);
+                    if (e.key === "Escape") closeLightbox();
+                }
+            });
+        </script>
+    </body>
+</html>

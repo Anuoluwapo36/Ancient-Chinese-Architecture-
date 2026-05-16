@@ -90,6 +90,12 @@
                     <p th:text="${item.description}">Detailed description...</p>
                 </div>
 
+                <div class="detail-card ai-insight-card" th:if="${aiInsight != null}">
+                    <h3><i class="fas fa-robot"></i> AI-Generated Historical Insights</h3>
+                    <p th:text="${aiInsight}">AI analysis loading...</p>
+                    <div class="ai-note"><i class="fas fa-shield-halved"></i> AI-enhanced historical research</div>
+                </div>
+                
                 <div
                     class="gallery-section"
                     th:if="${item != null and item.images != null and not #lists.isEmpty(item.images)}"

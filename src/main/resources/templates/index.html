@@ -27,6 +27,7 @@
                     </div>
                 </nav>
                 <div class="banner-content">
+                    <span>Powered with AI</span>
                     <h2 class="H2_text">Learning About History</h2>
 
                     <div class="searching">
@@ -39,7 +40,7 @@
                                 class="search-input"
                                 autocomplete="off"
                             />
-                            <div id="suggestionBox"></div>
+
                             <button type="submit" class="search-btn">
                                 <i class="fas fa-search"></i>
                             </button>
@@ -51,9 +52,9 @@
                                 <li th:each="result : ${searchResults}" th:text="${result.chineseName}"></li>
                             </ul>
                         </div>
+                        <div id="suggestionBox"></div>
                     </div>
-                </div>
-                <div id="imageResults">
+                    <div><div id="imageResults"></div></div>
                 </div>
             </section>
         </div>

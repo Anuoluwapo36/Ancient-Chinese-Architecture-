@@ -4,6 +4,7 @@ import com.example.ancient_architecture.model.Architecture;
 import com.example.ancient_architecture.model.Contact;
 import com.example.ancient_architecture.repository.ArchitectureRepository;
 import com.example.ancient_architecture.repository.ContactRepository;
+import com.example.ancient_architecture.service.AiService;
 import com.example.ancient_architecture.service.ArchitectureService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,17 @@ public class ArchitectureController {
     private ContactRepository contactRepository;
     private final ArchitectureService service;
     private final ArchitectureRepository architectureRepository;
+    private final AiService aiService;
 
     public ArchitectureController(
             ArchitectureService service,
-            ArchitectureRepository architectureRepository
+            ArchitectureRepository architectureRepository,
+            AiService aiService
         
     ) {
         this.service = service;
         this.architectureRepository = architectureRepository;
+        this.aiService = aiService;
         
     }
 
@@ -77,6 +81,10 @@ public String galleryPage(Model model) {
 
     model.addAttribute("item", item);
     model.addAttribute("searchQuery", query);
+
+
+    model.addAttribute("aiInsight", aiService.generateHistoricalInsight(item));
+    
     return "search-result";
 }
 

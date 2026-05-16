@@ -62,15 +62,10 @@ h6 {
     overflow-x: hidden;
 }
 
-
 .index_banner {
     position: relative;
     min-height: 100vh;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.7) 100%),
         url('https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
     background-size: cover;
@@ -92,7 +87,6 @@ h6 {
     background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
     pointer-events: none;
 }
-
 
 .navBar {
     position: fixed;
@@ -195,14 +189,20 @@ h6 {
     width: 70%;
 }
 
-
 .banner-content {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 2;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 6rem 1.5rem 3rem;
-    animation: fadeInUp 1s ease-out;
+    max-width: 900px;
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
 }
 
 .H2_text {
@@ -210,7 +210,6 @@ h6 {
     font-weight: 700;
     color: var(--white);
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    margin-bottom: 2rem;
     letter-spacing: -0.02em;
     line-height: 1.2;
     position: relative;
@@ -229,13 +228,11 @@ h6 {
     border-radius: 2px;
 }
 
-
 .searching {
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
     width: 100%;
     max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    position: relative;
 }
 
 .searching form {
@@ -295,17 +292,19 @@ h6 {
     color: var(--white);
 }
 
+/* ✅ PERFECT SUGGESTION BOX - NO PUSH, NO LAYOUT SHIFT */
 #suggestionBox {
     position: absolute;
-    top: calc(100% + 8px);
+    top: 100%;
     left: 0;
     right: 0;
+    margin-top: 8px;
     background: var(--white);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-lg);
     max-height: 280px;
     overflow-y: auto;
-    z-index: 100;
+    z-index: 9999;
     display: none;
 }
 
@@ -346,7 +345,6 @@ h6 {
     background: var(--primary);
     border-radius: 10px;
 }
-
 
 #imageResults {
     position: relative;
@@ -411,7 +409,6 @@ h6 {
     transform: translateY(0);
 }
 
-
 .searching div[th|="if"] {
     margin-top: 2rem;
     background: rgba(0, 0, 0, 0.6);
@@ -450,7 +447,6 @@ h6 {
     transform: translateY(-2px);
 }
 
-
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -474,7 +470,7 @@ h6 {
 }
 
 #imageResults:empty::before {
-    content: ' Start typing to discover ancient wonders...';
+    content: 'Start typing to discover ancient wonders...';
     display: block;
     text-align: center;
     grid-column: 1 / -1;
@@ -484,7 +480,6 @@ h6 {
     color: rgba(255, 255, 255, 0.7);
     letter-spacing: 0.5px;
 }
-
 
 @media (max-width: 968px) {
     .nav-container {
@@ -532,7 +527,7 @@ h6 {
     }
 
     .banner-content {
-        padding: 5rem 1rem 2rem;
+        padding: 0 1rem;
     }
 
     .H2_text {
@@ -553,10 +548,6 @@ h6 {
     #imageResults {
         grid-template-columns: 1fr;
         gap: 1rem;
-    }
-
-    .searching form {
-        margin: 0 0.5rem;
     }
 
     #suggestionBox div {
@@ -593,7 +584,6 @@ h6 {
     }
 }
 
-
 @media (hover: hover) {
     .nav-btn:hover::after {
         width: 70%;
@@ -621,7 +611,6 @@ h6 {
     color: var(--black);
 }
 
-
 .loading {
     position: relative;
     overflow: hidden;
@@ -637,7 +626,6 @@ h6 {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     animation: shimmer 1.5s infinite;
 }
-
 
 @media print {
     .index_banner {
